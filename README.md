@@ -1,6 +1,6 @@
 # PR Pitching Plugin for Claude Cowork
 
-![The AI Built for Comms Pros](./pr-plugin-linkedin.png)
+![The AI Built for Comms Pros](.AIBuiltForCommsProsImage.jpg)
 
 > **The AI Built for Comms Pros** — 25+ years of strategic communications expertise encoded into a zero-dependency Claude Cowork plugin. End-to-end press release pitching workflows, from news value assessment to coverage report.
 
