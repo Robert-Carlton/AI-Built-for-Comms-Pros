@@ -1,4 +1,4 @@
-# PR Pitching Plugin for Claude Cowork
+# PR Plugin for Claude Cowork
 
 ![The AI Built for Comms Pros](./AIBuiltForCommsProsImage.jpg)
 
