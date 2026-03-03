@@ -228,7 +228,7 @@ This plugin is built to enforce that discipline at every step — from the momen
 
 ## License
 
-Copyright (c) 2026. Personal and evaluation use only. Commercial use, redistribution, or resale requires written permission. See [LICENSE](./LICENSE) for full terms.
+Copyright (c) 2026. Free for personal use and experiment with. Commercial use requires permission. See [LICENSE](./LICENSE) for full terms.
 
 ---
 
