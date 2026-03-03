@@ -1,0 +1,23 @@
+{
+  "name": "pr-tools",
+  "version": "3.0.0",
+  "description": "End-to-end press release pitching specialist. Handles competitive positioning, release review, journalist intelligence, pitch drafting, outreach execution, coverage tracking, and campaign reporting. Upload historical releases to generate a custom style guide and template. No local tools or setup required.",
+  "author": {
+    "name": "Robert Carlton",
+    "email": "RMCmailbox3+PRTOOLS@gmail.com"
+  },
+  "license": "SEE LICENSE FILE",
+  "keywords": ["pr", "communications", "press-release", "media-relations", "pitching","media-list"],
+  "commands": [
+    "./commands/assess-news-value.md",
+    "./commands/competitive-scan.md",
+    "./commands/review-release.md",
+    "./commands/build-media-list.md",
+    "./commands/draft-pitch.md",
+    "./commands/subject-lines.md",
+    "./commands/follow-up.md",
+    "./commands/coverage-tracker.md",
+    "./commands/campaign-brief.md",
+    "./commands/pr-learn-style.md"
+  ]
+}
