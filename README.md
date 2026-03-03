@@ -24,7 +24,7 @@ The plugin encodes hard-won expertise across the full PR campaign lifecycle: how
 2. Open Claude Desktop and switch to the **Cowork** tab
 3. Click **Customize** in the left sidebar
 4. Click **Browse Plugins** → **Upload Custom Plugin**
-5. Point it at the `pr-pitching` folder
+5. Point it at the `pr-tools.zip` file
 
 Once installed, skills activate automatically based on context. Slash commands are available by typing `/` in the Cowork input.
 
