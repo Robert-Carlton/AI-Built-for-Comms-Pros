@@ -20,7 +20,7 @@ The plugin encodes hard-won expertise across the full PR campaign lifecycle: how
 
 ## Installation
 
-1. Download or clone this repository
+1. Download or clone this repository or [Download the latest zip package(.zip)](https://github.com/Robert-Carlton/AI-Built-for-Comms-Pros/releases/download/v4.0.0.0/PR-tools.zip)
 2. Open Claude Desktop and switch to the **Cowork** tab
 3. Click **Customize** in the left sidebar
 4. Click **Browse Plugins** → **Upload Custom Plugin**
