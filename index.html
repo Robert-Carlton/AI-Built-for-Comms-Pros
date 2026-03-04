@@ -1,0 +1,385 @@
+<html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1200">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    width: 1200px;
+    height: 627px;
+    overflow: hidden;
+    background: #0A0A0F;
+    font-family: 'DM Sans', sans-serif;
+  }
+
+  .canvas {
+    width: 1200px;
+    height: 627px;
+    position: relative;
+    background: #0A0A0F;
+    overflow: hidden;
+  }
+
+  /* Noise texture overlay */
+  .canvas::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    opacity: 0.4;
+    z-index: 1;
+    pointer-events: none;
+  }
+
+  /* Diagonal accent line */
+  .diagonal {
+    position: absolute;
+    width: 2px;
+    height: 900px;
+    background: linear-gradient(to bottom, transparent, #C8A96E 30%, #C8A96E 70%, transparent);
+    transform: rotate(-20deg);
+    top: -150px;
+    left: 520px;
+    opacity: 0.25;
+    z-index: 2;
+  }
+
+  /* Left ink blob */
+  .ink-left {
+    position: absolute;
+    width: 380px;
+    height: 380px;
+    background: radial-gradient(ellipse at 40% 50%, #1a3a5c 0%, #0d1f33 50%, transparent 75%);
+    top: 50%;
+    left: -80px;
+    transform: translateY(-50%);
+    z-index: 2;
+  }
+
+  /* Gold accent dot cluster */
+  .dots {
+    position: absolute;
+    right: 80px;
+    top: 60px;
+    z-index: 3;
+    display: grid;
+    grid-template-columns: repeat(5, 8px);
+    gap: 10px;
+  }
+  .dot {
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: #C8A96E;
+    opacity: 0.5;
+  }
+  .dot.bright { opacity: 0.9; }
+
+  /* Top label bar */
+  .top-label {
+    position: absolute;
+    top: 44px;
+    left: 72px;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: #C8A96E;
+    border: 1px solid rgba(200, 169, 110, 0.4);
+    padding: 5px 12px;
+    background: rgba(200, 169, 110, 0.05);
+  }
+  .tag-divider {
+    width: 40px;
+    height: 1px;
+    background: rgba(200, 169, 110, 0.3);
+  }
+  .tag-sub {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.3);
+  }
+
+  /* Main headline */
+  .headline-block {
+    position: absolute;
+    top: 110px;
+    left: 72px;
+    z-index: 10;
+    max-width: 580px;
+  }
+  .headline-eyebrow {
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.35);
+    margin-bottom: 18px;
+  }
+  .headline {
+    font-family: 'Playfair Display', serif;
+    font-weight: 900;
+    font-size: 68px;
+    line-height: 1.0;
+    color: #FFFFFF;
+    letter-spacing: -0.02em;
+  }
+  .headline em {
+    font-style: italic;
+    color: #C8A96E;
+  }
+  .headline-sub {
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    font-size: 18px;
+    line-height: 1.6;
+    color: rgba(255,255,255,0.55);
+    margin-top: 22px;
+    max-width: 460px;
+    letter-spacing: 0.01em;
+  }
+
+  /* Feature pills */
+  .pills {
+    position: absolute;
+    bottom: 72px;
+    left: 72px;
+    z-index: 10;
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    max-width: 600px;
+  }
+  .pill {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.5);
+    border: 1px solid rgba(255,255,255,0.12);
+    padding: 6px 14px;
+    background: rgba(255,255,255,0.03);
+  }
+  .pill.gold {
+    color: #C8A96E;
+    border-color: rgba(200,169,110,0.3);
+    background: rgba(200,169,110,0.05);
+  }
+
+  /* Right panel — command list */
+  .command-panel {
+    position: absolute;
+    right: 72px;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+    width: 310px;
+  }
+  .command-panel-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(200,169,110,0.6);
+    margin-bottom: 16px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid rgba(200,169,110,0.15);
+  }
+  .command-item {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    margin-bottom: 11px;
+  }
+  .cmd {
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    color: #C8A96E;
+    white-space: nowrap;
+    opacity: 0.9;
+  }
+  .cmd-desc {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 12px;
+    font-weight: 300;
+    color: rgba(255,255,255,0.4);
+    line-height: 1.3;
+  }
+
+  /* Bottom bar */
+  .bottom-bar {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(to right, transparent, #C8A96E 20%, #C8A96E 80%, transparent);
+    opacity: 0.4;
+    z-index: 10;
+  }
+
+  /* GitHub CTA */
+  .cta {
+    position: absolute;
+    bottom: 44px;
+    right: 72px;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .cta-text {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.35);
+  }
+  .cta-arrow {
+    font-size: 14px;
+    color: #C8A96E;
+    opacity: 0.7;
+  }
+
+  /* Vertical rule between columns */
+  .vr {
+    position: absolute;
+    left: 680px;
+    top: 80px;
+    bottom: 80px;
+    width: 1px;
+    background: linear-gradient(to bottom, transparent, rgba(255,255,255,0.08) 20%, rgba(255,255,255,0.08) 80%, transparent);
+    z-index: 5;
+  }
+
+  /* Subtle grid in bg */
+  .grid-bg {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+    background-size: 60px 60px;
+    z-index: 1;
+  }
+
+  /* Glow accent */
+  .glow {
+    position: absolute;
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(circle, rgba(200,169,110,0.06) 0%, transparent 70%);
+    top: -50px;
+    right: 100px;
+    z-index: 2;
+    pointer-events: none;
+  }
+</style>
+</head>
+<body>
+<div class="canvas">
+
+  <div class="grid-bg"></div>
+  <div class="ink-left"></div>
+  <div class="diagonal"></div>
+  <div class="glow"></div>
+
+  <!-- Dot cluster -->
+  <div class="dots">
+    <div class="dot bright"></div><div class="dot"></div><div class="dot bright"></div><div class="dot"></div><div class="dot bright"></div>
+    <div class="dot"></div><div class="dot bright"></div><div class="dot"></div><div class="dot bright"></div><div class="dot"></div>
+    <div class="dot bright"></div><div class="dot"></div><div class="dot bright"></div><div class="dot"></div><div class="dot bright"></div>
+  </div>
+
+  <!-- Top label -->
+  <div class="top-label">
+    <div class="tag">New Release</div>
+    <div class="tag-divider"></div>
+    <div class="tag-sub">Claude Cowork Plugin</div>
+  </div>
+
+  <!-- Main headline -->
+  <div class="headline-block">
+    <div class="headline-eyebrow">AI-Powered Strategic Communications</div>
+    <div class="headline">The <em>AI</em> Built<br>for Comms Pros</div>
+    <div class="headline-sub">Announcing <span style="color: #C8A96E; font-weight: 900;">PR Tools.</span> A new Claude Cowork plugin for communications professionals.<span style="color: #C8A96E; font-weight: 500;"> FREE</span> to use, and built upon decades of experience, best practices and AI insights. Streamline your workflow!</div>
+  </div>
+
+  <!-- Feature pills -->
+  <div class="pills">
+    <div class="pill gold">14 Newsworthiness Criteria</div>
+    <div class="pill">Media List Builder</div>
+    <div class="pill">Pitch Analyzer</div>
+    <div class="pill">Style Extraction</div>
+    <div class="pill">Coverage Tracking</div>
+  </div>
+
+  <!-- Vertical rule -->
+  <div class="vr"></div>
+
+  <!-- Command panel -->
+  <div class="command-panel">
+    <div class="command-panel-label">10 Powerful Slash Commands</div>
+
+    <div class="command-item">
+      <span class="cmd">/assess-news-value</span>
+    </div>
+    <div class="command-item">
+      <span class="cmd">/competitive-scan</span>
+    </div>
+    <div class="command-item">
+      <span class="cmd">/review-release</span>
+    </div>
+    <div class="command-item">
+      <span class="cmd">/build-media-list</span>
+    </div>
+    <div class="command-item">
+      <span class="cmd">/draft-pitch</span>
+    </div>
+    <div class="command-item">
+      <span class="cmd">/subject-lines</span>
+    </div>
+    <div class="command-item">
+      <span class="cmd">/follow-up</span>
+    </div>
+    <div class="command-item">
+      <span class="cmd">/coverage-tracker</span>
+    </div>
+    <div class="command-item">
+      <span class="cmd">/campaign-brief</span>
+    </div>
+    <div class="command-item">
+      <span class="cmd">/learn-style</span>
+    </div>
+
+    <!-- GitHub CTA -->
+    <div class="cta" style="position:relative; bottom:auto; right:auto; margin-top:22px;">
+      
+        <div class="cta-text">Get it: github.com/Robert-Carlton/AI-Built-for-Comms-Pros</div>
+      
+      <div class="cta-arrow">→</div>
+    </div>
+
+<div class="cta" style="position:relative; bottom:auto; right:auto; margin-top:22px;">
+      
+        <div class="cta-text">Learn: https://github.com/Robert-Carlton/AI-Built-for-Comms-Pros/wiki</div>
+      
+      <div class="cta-arrow">→</div>
+    </div>
+  </div>
+
+  <div class="bottom-bar"></div>
+</div>
+
+
+</body></html>
