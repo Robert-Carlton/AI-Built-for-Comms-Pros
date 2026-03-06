@@ -15,7 +15,7 @@
 
 ---
 
-## What PR Tools>
+## What is PR Tools?
 
 A complete public relations toolkit that runs entirely within Claude Cowork — no Python environment, no API keys, no local dependencies. Install once, [customize with your org's details](https://github.com/Robert-Carlton/AI-Built-for-Comms-Pros/wiki/Customizing-PR-Tools-for-Your-Organization-or-Client), and every press release campaign runs through a structured, professional workflow.
 
