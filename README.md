@@ -17,9 +17,9 @@
 
 ## What PR Tools>
 
-A complete public relations toolkit that runs entirely within Claude Cowork — no Python environment, no API keys, no local dependencies. Install once, customize with your org's details, and every press release campaign runs through a structured, professional workflow.
+A complete public relations toolkit that runs entirely within Claude Cowork — no Python environment, no API keys, no local dependencies. Install once, [customize with your org's details](https://github.com/Robert-Carlton/AI-Built-for-Comms-Pros/wiki/Customizing-PR-Tools-for-Your-Organization-or-Client), and every press release campaign runs through a structured, professional workflow.
 
-The plugin encodes hard-won expertise across the full PR campaign lifecycle: how to assess whether a story is actually newsworthy, how to position against competitive announcements, how to build a media list that prioritizes quality over volume, how to write pitches that journalists actually read, and how to report results in a way that makes sense to leadership.
+The plugin encodes hard-won expertise across the full PR campaign lifecycle: how to [assess whether a story is actually newsworthy](https://github.com/Robert-Carlton/AI-Built-for-Comms-Pros/wiki/Customizing-PR-Tools-for-Your-Organization-or-Client), how to position against competitive announcements, how to [build a media list](https://github.com/Robert-Carlton/AI-Built-for-Comms-Pros/wiki/Customizing-PR-Tools-for-Your-Organization-or-Client) that prioritizes quality over volume, how to [write pitches](https://github.com/Robert-Carlton/AI-Built-for-Comms-Pros/wiki/Customizing-PR-Tools-for-Your-Organization-or-Client) that journalists actually read, and [how to report results](https://github.com/Robert-Carlton/AI-Built-for-Comms-Pros/wiki/Customizing-PR-Tools-for-Your-Organization-or-Client) in a way that makes sense to leadership.
 
 ---
 
