@@ -10,7 +10,7 @@
 
 
 🔥 🔥 🔥 Download PR Tools [here](https://github.com/Robert-Carlton/AI-Built-for-Comms-Pros/releases/tag/v4.0.0.0) 🔥🔥🔥
-
+📗📗📗 Read the wiki / docs [here](https://github.com/Robert-Carlton/AI-Built-for-Comms-Pros/wiki) 📗📗📗
 
 ---
 
